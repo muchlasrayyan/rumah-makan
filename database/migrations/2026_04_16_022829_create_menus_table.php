@@ -29,3 +29,19 @@ return new class extends Migration
         Schema::dropIfExists('menus');
     }
 };
+return new class extends Migration
+{
+    public function up()
+    {
+        Schema::table('menus', function (Blueprint $table) {
+            $table->string('gambar')->nullable();
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('menus', function (Blueprint $table) {
+            $table->dropColumn('gambar');
+        });
+    }
+};
