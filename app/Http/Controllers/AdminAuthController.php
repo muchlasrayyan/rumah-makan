@@ -7,8 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminAuthController extends Controller
 {
-    // FORM LOGIN
-    public function loginForm()
+
+    // HALAMAN LOGIN
+    public function showLogin()
     {
         return view('admin.login');
     }
@@ -16,24 +17,30 @@ class AdminAuthController extends Controller
     // PROSES LOGIN
     public function login(Request $request)
     {
-        $data = $request->only('email', 'password');
 
-        if (Auth::guard('admin')->attempt($data)) {
+        $credentials = $request->only('email', 'password');
+
+        if(Auth::guard('admin')->attempt($credentials))
+        {
             return redirect('/admin/dashboard');
         }
 
-        return back()->with('error', 'Email atau password salah!');
+        return back()->with('error', 'Email atau Password salah');
+
     }
 
     // DASHBOARD
     public function dashboard()
-{
-    return view('admin.dashboard');
-}
+    {
+        return view('admin.dashboard');
+    }
+
     // LOGOUT
     public function logout()
     {
         Auth::guard('admin')->logout();
+
         return redirect('/admin/login');
     }
+
 }

@@ -3,228 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-   <!DOCTYPE html>
-<html>
-<head>
-    <title>Rumah Makan</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rumah Makan Padang</title>
 
     <style>
-        /* RESET */
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: url("{{ asset('images/bg-rumah-makan.jpg') }}") no-repeat center center fixed;
-            background-size: cover;
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
         }
 
-        /* LOADING */
-        #loader {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: #111;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
+        body{
+            background:#f5f5f5;
         }
 
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #fff;
-            border-top: 5px solid orange;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
+        /* HERO SECTION */
+        .hero{
+            height:100vh;
+            background:
+            linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+            url("{{ asset('images/bg-rumah-makan.jpg') }}");
 
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-
-        /* OVERLAY */
-        .overlay {
-            background: rgba(0,0,0,0.6);
-            min-height: 100vh;
+            background-size:cover;
+            background-position:center;
+            color:white;
         }
 
         /* NAVBAR */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            background: rgba(0,0,0,0.8);
-            color: white;
+        .navbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:20px 50px;
+            background:rgba(0,0,0,0.3);
+            position:fixed;
+            width:100%;
+            z-index:999;
+            backdrop-filter: blur(10px);
         }
 
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: orange;
+        .logo{
+            font-size:28px;
+            font-weight:bold;
+            color:orange;
         }
 
-        .nav-links a {
-            color: white;
-            margin-left: 20px;
-            text-decoration: none;
+        .menu-nav a{
+            color:white;
+            text-decoration:none;
+            margin-left:20px;
+            transition:0.3s;
         }
 
-        .nav-links a:hover {
-            color: orange;
+        .menu-nav a:hover{
+            color:orange;
         }
 
-        /* TITLE */
-        h2 {
-            text-align: center;
-            color: white;
-            margin-top: 20px;
+        /* HERO CONTENT */
+        .hero-content{
+            height:100%;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            padding:20px;
         }
 
-        /* MENU */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
+        .hero-content h1{
+            font-size:60px;
+            margin-bottom:20px;
         }
 
-        .card {
-            width: 280px;
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: 0.3s;
+        .hero-content p{
+            max-width:700px;
+            line-height:1.8;
+            margin-bottom:30px;
         }
 
-        .card:hover {
-            transform: scale(1.05);
+        .hero-content a{
+            background:orange;
+            color:white;
+            padding:15px 30px;
+            border-radius:50px;
+            text-decoration:none;
+            transition:0.3s;
         }
 
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
+        .hero-content a:hover{
+            background:#ff8800;
+            transform:scale(1.05);
         }
 
-        .card-body {
-            padding: 15px;
+        /* MENU SECTION */
+        .menu-section{
+            padding:80px 50px;
         }
 
-        .kategori {
-            background: #ffe0c2;
-            color: #ff7a00;
-            padding: 4px 10px;
-            border-radius: 10px;
-            font-size: 12px;
+        .title{
+            text-align:center;
+            margin-bottom:50px;
         }
 
-        .nama {
-            margin: 10px 0 5px;
+        .title h2{
+            font-size:40px;
+            color:#333;
         }
 
-        .deskripsi {
-            font-size: 14px;
-            color: #666;
+        /* CARD */
+        .container{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+            gap:30px;
         }
 
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
+        .card{
+            background:white;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 10px 25px rgba(0,0,0,0.1);
+            transition:0.4s;
         }
 
-        .harga {
-            color: green;
-            font-weight: bold;
+        .card:hover{
+            transform:translateY(-10px);
         }
 
-        .btn {
-            background: #25D366;
-            color: white;
-            padding: 7px 12px;
-            border-radius: 8px;
-            text-decoration: none;
+        .card img{
+            width:100%;
+            height:220px;
+            object-fit:cover;
         }
 
-        .btn:hover {
-            background: #1ebe5d;
+        .card-body{
+            padding:20px;
         }
+
+        .kategori{
+            background:#ffe0c2;
+            color:#ff7a00;
+            padding:5px 12px;
+            border-radius:20px;
+            font-size:12px;
+        }
+
+        .card-body h3{
+            margin:15px 0 10px;
+            color:#222;
+        }
+
+        .deskripsi{
+            color:#666;
+            font-size:14px;
+            line-height:1.6;
+        }
+
+        .footer{
+            margin-top:20px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .harga{
+            color:green;
+            font-size:18px;
+            font-weight:bold;
+        }
+
+        .btn{
+            background:#25D366;
+            color:white;
+            text-decoration:none;
+            padding:10px 18px;
+            border-radius:10px;
+            transition:0.3s;
+        }
+
+        .btn:hover{
+            background:#1ebe5d;
+        }
+
+        /* FOOTER */
+        footer{
+            background:#111;
+            color:white;
+            text-align:center;
+            padding:30px;
+            margin-top:50px;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:768px){
+
+            .navbar{
+                padding:15px 20px;
+            }
+
+            .hero-content h1{
+                font-size:40px;
+            }
+
+            .menu-section{
+                padding:60px 20px;
+            }
+
+        }
+
     </style>
 </head>
 
 <body>
 
-<!-- LOADING -->
-<div id="loader">
-    <div class="spinner"></div>
-</div>
-
-<div class="overlay">
+<!-- HERO -->
+<div class="hero">
 
     <!-- NAVBAR -->
     <div class="navbar">
-        <div class="logo">🍽️ Rumah Makan Padang</div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Menu</a>
-            <a href="#">Kontak</a>
+
+        <div class="logo">
+            🍽️ Rumah Makan
         </div>
+
+        <div class="menu-nav">
+            <a href="#">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="/admin/login">Admin</a>
+        </div>
+
     </div>
 
-    <!-- TITLE -->
-    <h2>Daftar Menu Kami</h2>
+    <!-- HERO CONTENT -->
+    <div class="hero-content">
 
-    <!-- MENU -->
+        <h1>Rumah Makan Padang</h1>
+
+        <p>
+            Nikmati cita rasa khas Nusantara dengan menu terbaik,
+            lezat, higienis, dan langsung bisa dipesan melalui WhatsApp.
+        </p>
+
+        <a href="#menu">Lihat Menu</a>
+
+    </div>
+
+</div>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+
+    <div class="title">
+        <h2>Menu Favorit Kami</h2>
+    </div>
+
     <div class="container">
 
         @foreach ($menus as $menu)
+
         <div class="card">
 
-            <img src="{{ asset($menu->gambar) }}">
+            <img src="{{ asset($menu->gambar) }}" alt="">
 
             <div class="card-body">
 
-                <span class="kategori">{{ $menu->kategori }}</span>
+                <span class="kategori">
+                    {{ $menu->kategori }}
+                </span>
 
-                <h3 class="nama">{{ $menu->nama_menu }}</h3>
+                <h3>{{ $menu->nama_menu }}</h3>
 
-                <p class="deskripsi">{{ $menu->deskripsi }}</p>
+                <p class="deskripsi">
+                    {{ $menu->deskripsi }}
+                </p>
 
                 <div class="footer">
-                    <span class="harga">
-                        Rp {{ number_format($menu->harga, 0, ',', '.') }}
-                    </span>
 
-                    <a href="https://wa.me/6289519118068?text=Saya ingin pesan {{ urlencode($menu->nama_menu) }}" 
-                       target="_blank"
-                       class="btn">
+                    <div class="harga">
+                        Rp {{ number_format($menu->harga,0,',','.') }}
+                    </div>
+
+                    <a 
+                    href="https://wa.me/6289519118068?text=Saya ingin pesan {{ urlencode($menu->nama_menu) }}"
+                    target="_blank"
+                    class="btn">
+
                         Pesan
+
                     </a>
+
                 </div>
 
             </div>
 
         </div>
+
         @endforeach
 
     </div>
 
-</div>
+</section>
 
-<!-- SCRIPT LOADING -->
-<script>
-    window.onload = function(){
-        document.getElementById("loader").style.display = "none";
-    }
-</script>
+<!-- FOOTER -->
+<footer>
+
+    <h3>🍽️ Rumah Makan Padang</h3>
+
+    <p>
+        © 2026 All Rights Reserved
+    </p>
+
+</footer>
 
 </body>
 </html>

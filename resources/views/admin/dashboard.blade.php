@@ -82,5 +82,16 @@
 
     </div>
 
+    <!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Admin</title>
+</head>
+<body>
+
+
+</body>
+</html>
+
 </body>
 </html>
